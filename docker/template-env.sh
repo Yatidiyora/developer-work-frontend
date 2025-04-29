@@ -4,6 +4,6 @@
 cat << EOF > /usr/share/nginx/html/runtime-env.js
 window.ENV = {
   NODE_ENV: '${NODE_ENV:-DEVELOPMENT}',
-  API_URL: '${API_URL:-http://localhost:3000/api}',
+  API_URL: '${API_URL:-https://developer-work-backend.netlify.app/api}',
 };
 EOF
