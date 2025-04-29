@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import DataTable, { TableStyles } from 'react-data-table-component';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { TableRequireData } from '../../common/types/interface/TableTypes';
@@ -104,7 +104,7 @@ export const DynamicDataTable: FunctionComponent<TableRequireData> = (props) => 
                 id="search"
                 type="text"
                 style={{
-                  width: searchWidth ??'300px'
+                  width: searchWidth ?? '300px',
                 }}
                 placeholder={filterDefaultText}
                 aria-label="Search Input"
@@ -156,7 +156,7 @@ export const DynamicDataTable: FunctionComponent<TableRequireData> = (props) => 
         backgroundColor: '#1A1A2E',
         borderTopLeftRadius: '8px',
         borderTopRightRadius: '8px',
-      }
+      },
     },
     pagination: {
       style: {
@@ -171,7 +171,7 @@ export const DynamicDataTable: FunctionComponent<TableRequireData> = (props) => 
         minHeight: '50px',
         color: '#ffffff',
         backgroundColor: '#1A1A2E',
-        borderBottom: '1px solid #ffffff', 
+        borderBottom: '1px solid #ffffff',
         transition: '0.3s',
         '&:hover': {
           backgroundColor: '#162447',
@@ -197,7 +197,6 @@ export const DynamicDataTable: FunctionComponent<TableRequireData> = (props) => 
       },
     },
   };
-  
 
   return (
     <div className="data-table-container">

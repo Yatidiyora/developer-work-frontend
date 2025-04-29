@@ -1,19 +1,8 @@
 import moment from 'moment';
-import React from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import { RiEditLine } from 'react-icons/ri';
-import { ACTION_TYPE, FORMAT } from '../../../common/types/enum/CommonEnum';
+import { FORMAT } from '../../../common/types/enum/CommonEnum';
 import { OrderDetails } from '../../../common/types/interface/Customer.interface';
 
-const OrderDetailsColumn = ({
-    setAction
-}: {
-    setAction: React.Dispatch<React.SetStateAction<{
-    customerOrder: any;
-      actionType: any;
-  } | undefined>> 
-}) => {
+const OrderDetailsColumn = () => {
   const formatDate = (date: string): string => {
     const format = date ? moment(date).utc().format(FORMAT.NORAML_DATE) : 'N/A';
     return format;

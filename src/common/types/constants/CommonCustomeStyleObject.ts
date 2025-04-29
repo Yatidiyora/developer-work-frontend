@@ -70,7 +70,7 @@ export const marginDefaultSelectCss: StylesConfig<OptionType, false> = {
 };
 
 export const customSelectStyles: StylesConfig<OptionType, false> = {
-  control: (provided, state) => ({
+  control: (provided) => ({
     ...provided,
     width: "115px",
     height: "25px",

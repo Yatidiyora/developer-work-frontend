@@ -1,5 +1,3 @@
-import React from "react";
-
 const StatCard = ({
   value,
   label,
@@ -14,10 +12,10 @@ const StatCard = ({
       className="stat-card"
       style={{
         background: gradient,
-        padding: "20px",
-        borderRadius: "35px",
-        color: "#fff",
-        margin: "10px",
+        padding: '20px',
+        borderRadius: '35px',
+        color: '#fff',
+        margin: '10px',
       }}
     >
       <h2 className="stat-value">{value}</h2>

@@ -1,7 +1,5 @@
-import React from "react";
-import { PERMISSION_TYPES, RoutesPath } from "./common/types/enum/CommonEnum";
-import CustomerOrdersReviewPage from "./view/pages/cstomer-crm/CustomerOrdersReviewPage";
-
+import { PERMISSION_TYPES, RoutesPath } from './common/types/enum/CommonEnum';
+import CustomerOrdersReviewPage from './view/pages/cstomer-crm/CustomerOrdersReviewPage';
 
 export const routes: {
   routeType: string;

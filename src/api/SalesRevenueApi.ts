@@ -1,7 +1,6 @@
 import { AxiosError } from "axios";
 // import { ToastService, ToastType } from '../view/common/TostModal';
 import { BaseApi } from "./BaseApi";
-import { SalesRevenuePayload } from "../common/types/interface/SalesRevenue";
 
 class SalesRevenueApi extends BaseApi {
   private static instance: SalesRevenueApi;

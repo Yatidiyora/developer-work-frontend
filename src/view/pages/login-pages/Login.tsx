@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { useState } from 'react';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+  ToggleButton,
+  ToggleButtonGroup,
+} from 'react-bootstrap';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const onGoogleLogin = () => {
-    window.location.replace(`http://localhost:3000/api/auth/google?type=${isLogin ? 'logIn' : 'signUp'}`)
-  }
+    window.location.replace(
+      `http://localhost:3000/api/auth/google?type=${isLogin ? 'logIn' : 'signUp'}`,
+    );
+  };
 
   return (
     // <div>
@@ -18,12 +28,27 @@ const Login = () => {
       <Row className="w-100 justify-content-center">
         <Col xs={12} md={6} lg={4}>
           <div className="border p-4 shadow rounded">
-            <h3 className="text-center mb-4">{isLogin ? "Login" : "Sign Up"}</h3>
-            <ToggleButtonGroup type="radio" name="authToggle" className="w-100 mb-3" defaultValue={1}>
-              <ToggleButton id="login-toggle" variant="outline-primary" value={1} onClick={() => setIsLogin(true)}>
+            <h3 className="text-center mb-4">{isLogin ? 'Login' : 'Sign Up'}</h3>
+            <ToggleButtonGroup
+              type="radio"
+              name="authToggle"
+              className="w-100 mb-3"
+              defaultValue={1}
+            >
+              <ToggleButton
+                id="login-toggle"
+                variant="outline-primary"
+                value={1}
+                onClick={() => setIsLogin(true)}
+              >
                 Login
               </ToggleButton>
-              <ToggleButton id="signup-toggle" variant="outline-primary" value={2} onClick={() => setIsLogin(false)}>
+              <ToggleButton
+                id="signup-toggle"
+                variant="outline-primary"
+                value={2}
+                onClick={() => setIsLogin(false)}
+              >
                 Sign Up
               </ToggleButton>
             </ToggleButtonGroup>
@@ -43,7 +68,7 @@ const Login = () => {
                 <Form.Control type="password" placeholder="Password" />
               </Form.Group>
               <Button variant="primary" type="submit" className="w-100 mb-2">
-                {isLogin ? "Login" : "Sign Up"}
+                {isLogin ? 'Login' : 'Sign Up'}
               </Button>
               <Button onClick={onGoogleLogin} variant="danger" className="w-100">
                 Continue with Google
@@ -53,7 +78,7 @@ const Login = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

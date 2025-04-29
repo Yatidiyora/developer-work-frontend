@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import { sidebarConfig } from "./common/types/constants/SidebarConfig";
@@ -6,8 +6,8 @@ import { ToggleType } from "./common/types/interface/Layouts.interface";
 import RequireAuth from "./view/common/authantications/RequireAuth";
 import Header from "./view/layouts/header/Header";
 import Sidebar from "./view/layouts/sidebar/Sidebar";
-import Login from "./view/pages/login-pages/Login";
 import Dashboard from "./view/pages/Dashboard";
+import Login from "./view/pages/login-pages/Login";
 const NotFound = () => <h1>Page Not Found</h1>;
 
 const App = () => {

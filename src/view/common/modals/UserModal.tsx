@@ -1,20 +1,18 @@
-import { ErrorMessage, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
-import DataTable from "react-data-table-component";
-import { USER_MODAL_FIELDS } from "../../../common/types/constants/FormikConstants";
-import {
-  RolesByUserId,
-  UserModalProps,
-} from "../../../common/types/interface/UserModal.interface";
-import { ACTION_TYPE } from "../../../common/types/enum/CommonEnum";
-import { userRolesCustomStyles } from "../../../common/types/constants/CommonCustomeStyleObject";
-import { trackPromise } from "react-promise-tracker";
-import ManageRoleApi from "../../../api/ManageRoleApi";
-import ManageUserApi from "../../../api/ManageUserApi";
-import { Role } from "../../../common/types/interface/RoleModal.interface";
+import { ErrorMessage, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import DataTable from 'react-data-table-component';
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import { trackPromise } from 'react-promise-tracker';
+import ManageRoleApi from '../../../api/ManageRoleApi';
+import ManageUserApi from '../../../api/ManageUserApi';
+import { userRolesCustomStyles } from '../../../common/types/constants/CommonCustomeStyleObject';
+import { USER_MODAL_FIELDS } from '../../../common/types/constants/FormikConstants';
+import { ACTION_TYPE } from '../../../common/types/enum/CommonEnum';
+import { KeyValueAny } from '../../../common/types/interface/Common.interface';
+import { Role } from '../../../common/types/interface/RoleModal.interface';
+import { UserModalProps } from '../../../common/types/interface/UserModal.interface';
 
 const UserModal = (props: UserModalProps) => {
   const { action, setAction, stateChange, modalTitle } = props;
@@ -72,13 +70,13 @@ const UserModal = (props: UserModalProps) => {
     let updatedAssignedRoles: Role[];
     if (changeDirectionRight) {
       remainedAvailableRoles = availableRoles.filter(
-        ({ id }) => !changeRoles.map(({ id }) => id).includes(id)
+        ({ id }) => !changeRoles.map(({ id }) => id).includes(id),
       );
       updatedAssignedRoles = [...assignedRoles, ...changeRoles];
     } else {
       remainedAvailableRoles = [...availableRoles, ...changeRoles];
       updatedAssignedRoles = assignedRoles.filter(
-        ({ id }) => !changeRoles.map(({ id }) => id).includes(id)
+        ({ id }) => !changeRoles.map(({ id }) => id).includes(id),
       );
     }
     setRoles({
@@ -125,13 +123,13 @@ const UserModal = (props: UserModalProps) => {
 
   const UserAvailableRoleColumns = [
     {
-      name: "Name",
+      name: 'Name',
       selector: (row: any) => row.name,
       wrap: true,
       sortable: false,
     },
     {
-      name: "Description",
+      name: 'Description',
       selector: (row: any) => row.description,
       wrap: true,
       sortable: false,
@@ -150,9 +148,7 @@ const UserModal = (props: UserModalProps) => {
     if (action.actionType === ACTION_TYPE.EDIT && action.user.id) {
       const user = (await getUserById(action.user.id)).result;
       const userRoles = user.roles?.map(({ roleId }) => roleId);
-      const availableRoles = allRoles.filter(
-        ({ id }) => !userRoles.includes(id)
-      );
+      const availableRoles = allRoles.filter(({ id }) => !userRoles.includes(id));
       const assignedRoles = allRoles.filter(({ id }) => userRoles.includes(id));
       setRoles({ availableRoles, assignedRoles });
     }
@@ -179,14 +175,12 @@ const UserModal = (props: UserModalProps) => {
   return (
     <Modal show={action ? true : false} size="lg" onHide={handleClose}>
       <Modal.Header className="default-filter__header" closeButton>
-        <Modal.Title style={{ fontSize: "16px", fontWeight: "bold" }}>
-          {modalTitle}{" "}
-        </Modal.Title>
+        <Modal.Title style={{ fontSize: '16px', fontWeight: 'bold' }}>{modalTitle} </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
           <Formik
-            initialValues={action.user}
+            initialValues={action.user as KeyValueAny}
             onSubmit={(values) => {
               console.log(values);
               const user = {
@@ -306,11 +300,11 @@ const UserModal = (props: UserModalProps) => {
                     </Form.Group>
                   </Col>
                   <Col md={1}>
-                    <Form.Group style={{ height: "100%", marginTop: "300%" }}>
+                    <Form.Group style={{ height: '100%', marginTop: '300%' }}>
                       <div>
                         <div className="my-3 ">
                           <button
-                            style={{ background: "#E0E0E0" }}
+                            style={{ background: '#E0E0E0' }}
                             type="button"
                             onClick={handleClickTransferRightRoles}
                             className="btn btn-light"
@@ -322,7 +316,7 @@ const UserModal = (props: UserModalProps) => {
                         </div>
                         <div className="my-3">
                           <button
-                            style={{ background: "#E0E0E0" }}
+                            style={{ background: '#E0E0E0' }}
                             type="button"
                             onClick={handleClickTransferLeftRoles}
                             className="btn btn-light"
@@ -352,9 +346,9 @@ const UserModal = (props: UserModalProps) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Button className="action-button" type="submit">
-                    {action?.actionType === ACTION_TYPE.EDIT ? "Apply" : "Save"}
+                    {action?.actionType === ACTION_TYPE.EDIT ? 'Apply' : 'Save'}
                   </Button>
                 </div>
               </Form>

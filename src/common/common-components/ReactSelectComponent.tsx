@@ -1,9 +1,8 @@
 import { FieldProps, FormikProps } from "formik";
-import React from "react";
 import { FaCaretDown } from "react-icons/fa";
 import Select, { components, DropdownIndicatorProps, GroupBase } from "react-select";
-import { OptionType } from "../types/interface/Common.interface";
 import { customSelectStyles, marginDefaultSelectCss } from "../types/constants/CommonCustomeStyleObject";
+import { OptionType } from "../types/interface/Common.interface";
 
 const DefaultCustomSelect = ({
   field,

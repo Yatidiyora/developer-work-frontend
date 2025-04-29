@@ -1,8 +1,6 @@
 import Select from "react-select";
-
-import DatePicker from "react-datepicker";
 import { useField, useFormikContext } from "formik";
-import React from "react";
+import DatePicker from "react-datepicker";
 import { customMonthSelectStyles } from "../types/constants/CommonCustomeStyleObject";
 import { months, years } from "../types/constants/CustomDatePickerOptions";
 
@@ -86,4 +84,4 @@ const CommonDatePicker = (object: any) => {
   );
 };
 
-export { RenderCustomHeader, CustomDatePicker, CommonDatePicker };
+export { CommonDatePicker, CustomDatePicker, RenderCustomHeader };

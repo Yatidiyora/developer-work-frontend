@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React from 'react';
 
-const ToggleComponent = ({isOn, setIsOn}: {isOn: boolean, setIsOn: React.Dispatch<React.SetStateAction<boolean>>}) => {
-
+const ToggleComponent = ({
+  isOn,
+  setIsOn,
+}: {
+  isOn: boolean;
+  setIsOn: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const handleToggle = () => {
     setIsOn((prev) => !prev);
   };
 
   return (
     <button
-      className={`unique-toggle-button ${isOn ? "unique-toggle-on" : ""}`}
+      className={`unique-toggle-button ${isOn ? 'unique-toggle-on' : ''}`}
       onClick={handleToggle}
       aria-pressed={isOn}
     >

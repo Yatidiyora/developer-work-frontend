@@ -1,6 +1,5 @@
 import React from 'react';
-import { ACTION_TYPE } from "../enum/CommonEnum";
-import React from 'react';
+import { ACTION_TYPE } from '../enum/CommonEnum';
 
 export interface Role {
   id: string;
@@ -49,12 +48,7 @@ export interface TogglerType {
 
 export interface RoleModalProps {
   action: RoleActionState;
-  setAction: React.Dispatch<
-    React.SetStateAction<
-      | RoleActionState
-      | undefined
-    >
-  >;
+  setAction: React.Dispatch<React.SetStateAction<RoleActionState | undefined>>;
   stateChange: () => void;
   modalTitle: string;
 }

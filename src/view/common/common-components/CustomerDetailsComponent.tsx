@@ -1,9 +1,17 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row } from 'react-bootstrap';
 
 const CustomerDetailsComponent = (props: any) => {
-  const { customerDetails={} } = props;
-  const { customerName="", userName="", email="", firstName="",lastName="", contactType="", contactInfo="", lastActiveDate="" } = customerDetails;
+  const { customerDetails = {} } = props;
+  const {
+    customerName = '',
+    userName = '',
+    email = '',
+    firstName = '',
+    lastName = '',
+    contactType = '',
+    contactInfo = '',
+    lastActiveDate = '',
+  } = customerDetails;
   return (
     <div>
       {/* Page Header */}

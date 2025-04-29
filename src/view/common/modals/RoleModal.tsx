@@ -1,23 +1,24 @@
-import { ErrorMessage, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
-import DataTable from "react-data-table-component";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { trackPromise } from "react-promise-tracker";
-import ManageRoleApi from "../../../api/ManageRoleApi";
-import PermissionsApi from "../../../api/PermissionsApi";
-import { userRolesCustomStyles } from "../../../common/types/constants/CommonCustomeStyleObject";
-import { ROLE_MODAL_FIELDS } from "../../../common/types/constants/FormikConstants";
-import { ACTION_TYPE } from "../../../common/types/enum/CommonEnum";
+import { ErrorMessage, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
+import DataTable from 'react-data-table-component';
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
+import { trackPromise } from 'react-promise-tracker';
+import ManageRoleApi from '../../../api/ManageRoleApi';
+import PermissionsApi from '../../../api/PermissionsApi';
+import { userRolesCustomStyles } from '../../../common/types/constants/CommonCustomeStyleObject';
+import { ROLE_MODAL_FIELDS } from '../../../common/types/constants/FormikConstants';
+import { ACTION_TYPE } from '../../../common/types/enum/CommonEnum';
 import {
   PermissionsType,
   RoleModalProps,
   RolePermissions,
   RolePermissionsResponse,
   TogglerType,
-} from "../../../common/types/interface/RoleModal.interface";
-import RolePermissionToggleColumns from "../../pages/admin-settings/roles/RolePermissionToggleColumns";
+} from '../../../common/types/interface/RoleModal.interface';
+import RolePermissionToggleColumns from '../../pages/admin-settings/roles/RolePermissionToggleColumns';
+import { KeyValueAny } from '../../../common/types/interface/Common.interface';
 
 const RoleModal = (props: RoleModalProps) => {
   const { action, setAction, stateChange, modalTitle } = props;
@@ -39,10 +40,7 @@ const RoleModal = (props: RoleModalProps) => {
     setSelectedRoles(selectedRows);
   };
 
-  const changeRoles = (
-    changePermissions: RolePermissions[],
-    changeDirectionRight: boolean
-  ) => {
+  const changeRoles = (changePermissions: RolePermissions[], changeDirectionRight: boolean) => {
     let availablePermissions = { ...toggler.availablePermissions };
     let assignedPermissions = { ...toggler.assignedPermissions };
     if (changeDirectionRight) {
@@ -109,7 +107,7 @@ const RoleModal = (props: RoleModalProps) => {
 
   const availableColumn = [
     {
-      name: "Name",
+      name: 'Name',
       selector: (row: any) => row.name,
       wrap: true,
       sortable: false,
@@ -120,20 +118,16 @@ const RoleModal = (props: RoleModalProps) => {
 
   const defaultPermissions = async () => {
     const allPermissions: RolePermissionsResponse = await trackPromise(
-      permissionInstance.getAllRolePermissions()
+      permissionInstance.getAllRolePermissions(),
     );
     return allPermissions;
   };
   const getRole = async (allPermissions: RolePermissions[]) => {
     if (action.actionType === ACTION_TYPE.EDIT && action.role.id) {
-      const role = await trackPromise(
-        userRolesInstance.getRoleById(action.role.id)
-      );
+      const role = await trackPromise(userRolesInstance.getRoleById(action.role.id));
 
       const rolePermissionsIds = role.result.permissions
-        ? role.result.permissions?.map((row) =>
-            row.permissionId ? row.permissionId : ""
-          )
+        ? role.result.permissions?.map((row) => (row.permissionId ? row.permissionId : ''))
         : [];
       const rolePermissions = role.result.permissions ?? [];
       let availablePermissions: PermissionsType = {};
@@ -194,43 +188,34 @@ const RoleModal = (props: RoleModalProps) => {
   }, []);
 
   return (
-    <Modal
-      className="role-modal"
-      show={action ? true : false}
-      size="lg"
-      onHide={handleClose}
-    >
+    <Modal className="role-modal" show={action ? true : false} size="lg" onHide={handleClose}>
       <Modal.Header className="default-filter__header" closeButton>
-        <Modal.Title style={{ fontSize: "16px", fontWeight: "bold" }}>
-          {modalTitle}{" "}
-        </Modal.Title>
+        <Modal.Title style={{ fontSize: '16px', fontWeight: 'bold' }}>{modalTitle} </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
           <Formik
-            initialValues={action.role}
+            initialValues={action.role as KeyValueAny}
             onSubmit={(values) => {
-              const permissions = Object.entries(
-                toggler.assignedPermissions
-              ).map(([key, value]) => {
-                return {
-                  roleId: action.role.id,
-                  permissionName: value.name,
-                  permissionId: key,
-                  view: Number(value.view || false),
-                  edit: Number(value.edit || false),
-                  delete: Number(value.delete || false),
-                };
-              });
+              const permissions = Object.entries(toggler.assignedPermissions).map(
+                ([key, value]) => {
+                  return {
+                    roleId: action.role.id,
+                    permissionName: value.name,
+                    permissionId: key,
+                    view: Number(value.view || false),
+                    edit: Number(value.edit || false),
+                    delete: Number(value.delete || false),
+                  };
+                },
+              );
               const role = {
                 name: values[rolenameObjectTitle],
                 permissions,
               };
               if (action.actionType === ACTION_TYPE.ADD) {
                 const addRole = async () => {
-                  await trackPromise(
-                    userRolesInstance.addNewRole(JSON.stringify(role))
-                  );
+                  await trackPromise(userRolesInstance.addNewRole(JSON.stringify(role)));
                   stateChange();
                   setAction(undefined);
                 };
@@ -238,10 +223,7 @@ const RoleModal = (props: RoleModalProps) => {
               } else {
                 const updateUser = async () => {
                   await trackPromise(
-                    userRolesInstance.updateRole(
-                      action.role.id,
-                      JSON.stringify(role)
-                    )
+                    userRolesInstance.updateRole(action.role.id, JSON.stringify(role)),
                   );
                   setAction(undefined);
                   stateChange();
@@ -279,9 +261,7 @@ const RoleModal = (props: RoleModalProps) => {
                         <DataTable
                           title="Available Permissions"
                           columns={availableColumn}
-                          data={Object.entries(
-                            toggler.availablePermissions
-                          ).map(([key, value]) => {
+                          data={Object.entries(toggler.availablePermissions).map(([key, value]) => {
                             return {
                               id: key,
                               ...value,
@@ -297,11 +277,11 @@ const RoleModal = (props: RoleModalProps) => {
                     </Form.Group>
                   </Col>
                   <Col md={1}>
-                    <Form.Group style={{ height: "100%", marginTop: "300%" }}>
+                    <Form.Group style={{ height: '100%', marginTop: '300%' }}>
                       <div>
                         <div className="my-3 ">
                           <button
-                            style={{ background: "#E0E0E0" }}
+                            style={{ background: '#E0E0E0' }}
                             type="button"
                             onClick={handleClickTransferRightRoles}
                             className="btn btn-light"
@@ -313,7 +293,7 @@ const RoleModal = (props: RoleModalProps) => {
                         </div>
                         <div className="my-3">
                           <button
-                            style={{ background: "#E0E0E0" }}
+                            style={{ background: '#E0E0E0' }}
                             type="button"
                             onClick={handleClickTransferLeftRoles}
                             className="btn btn-light"
@@ -332,14 +312,12 @@ const RoleModal = (props: RoleModalProps) => {
                         <DataTable
                           title="Assigned Permissions"
                           columns={assignedColumns}
-                          data={Object.entries(toggler.assignedPermissions).map(
-                            ([key, value]) => {
-                              return {
-                                id: key,
-                                ...value,
-                              };
-                            }
-                          )}
+                          data={Object.entries(toggler.assignedPermissions).map(([key, value]) => {
+                            return {
+                              id: key,
+                              ...value,
+                            };
+                          })}
                           selectableRows
                           onSelectedRowsChange={handleRightChange}
                           clearSelectedRows={cleasrSelected}
@@ -350,9 +328,9 @@ const RoleModal = (props: RoleModalProps) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Button className="action-button" type="submit">
-                    {action?.actionType === ACTION_TYPE.EDIT ? "Apply" : "Save"}
+                    {action?.actionType === ACTION_TYPE.EDIT ? 'Apply' : 'Save'}
                   </Button>
                 </div>
               </Form>
